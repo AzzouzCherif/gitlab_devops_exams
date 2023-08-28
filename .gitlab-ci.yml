@@ -3,5 +3,7 @@ stages:
 
 show_linux_version:
   stage: test
+  tags:
+    - coureur
   script:
     - uname -a
