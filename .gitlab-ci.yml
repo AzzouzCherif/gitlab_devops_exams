@@ -1,4 +1,3 @@
-
 stages:
   - build_and_push
   - deploy
@@ -16,44 +15,49 @@ build_and_push:
     - docker build -t $CI_REGISTRY_IMAGE/users:latest /home/ubuntu/gitlab_devops_exams/users/
     - docker push $CI_REGISTRY_IMAGE/users:latest
 
-.configure_kube: &configure_kube
-  before_script:
-    - rm -Rf .kube
-    - mkdir -p .kube
-    - ls
-    - cat $KUBE_CONFIG > .kube/config
-    - kubectl config view --raw >~/.kube/config
 # Deploy Gateway
 deploy_gateway_dev:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace dev
 
 deploy_gateway_qa:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace qa
 
 deploy_gateway_staging:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace staging
 
 deploy_gateway_prod:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace prod
   when: manual
 
@@ -62,65 +66,89 @@ deploy_orders_dev:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace dev
 
 deploy_orders_qa:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace qa
 
 deploy_orders_staging:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace staging
 
 deploy_orders_prod:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace prod
   when: manual
 
-## Deploy Users
+# Deploy Users
 deploy_users_dev:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace dev
 
 deploy_users_qa:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace qa
 
 deploy_users_staging:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace staging
 
 deploy_users_prod:
   stage: deploy
   tags:
     - batata
-  <<: *configure_kube
   script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace prod
   when: manual
