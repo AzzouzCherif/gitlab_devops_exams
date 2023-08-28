@@ -91,7 +91,7 @@ deploy_orders_prod:
     - main
   when: manual
 
-# Deploy Users
+## Deploy Users
 deploy_users_dev:
   stage: deploy
   tags:
