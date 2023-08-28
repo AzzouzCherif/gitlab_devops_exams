@@ -1,9 +1,28 @@
-stages:
-  - test
+image: docker:latest
 
-show_linux_version:
-  stage: test
+services:
+  - docker:dind
+
+stages:
+  - build
+
+build_gateway:
+  stage: build
   tags:
     - coureur
   script:
-    - uname -a
+    - docker build -t gateway:latest gateway/
+
+build_orders:
+  stage: build
+  tags:
+    - coureur
+  script:
+    - docker build -t orders:latest orders/
+
+build_users:
+  stage: build
+  tags:
+    - coureur
+  script:
+    - docker build -t users:latest users/
