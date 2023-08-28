@@ -11,5 +11,4 @@ build_gateway:
   tags:
     - coureur
   script:
-    - docker build -t gateway:latest ~/gitlab_devops_exams/gateway/
-
+    - docker build -t gateway:latest /home/gitlab-runner/gitlab_devops_exams/gateway/
