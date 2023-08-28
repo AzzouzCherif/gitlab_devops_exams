@@ -1,14 +1,9 @@
-image: docker:latest
-
-services:
-  - docker:dind
-
 stages:
   - build
 
 build_gateway:
   stage: build
   tags:
-    - coureur
+    - batata
   script:
     - docker build -t gateway:latest ./gateway/
