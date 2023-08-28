@@ -27,4 +27,5 @@ deploy_gateway_dev:
     - cat $KUBE_CONFIG > .kube/config
     - cat .kube/config
     -  helm upgrade --install gateway gateway/gateway/ --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace dev  --kubeconfig=.kube/config
-
+    -  helm upgrade --install users users/users/ --set image.repository=$CI_REGISTRY_IMAGE/users --namespace dev  --kubeconfig=.kube/config
+    -  helm upgrade --install orders orders/orders/ --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace dev  --kubeconfig=.kube/config
