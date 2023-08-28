@@ -19,3 +19,48 @@ build_and_push:
   stage: deploy
   script:
     - helm upgrade --install $SERVICE $CHART_PATH --set image.repository=$CI_REGISTRY_IMAGE --namespace $KUBE_NAMESPACE
+
+.deploy_to_all_environments: &deploy_all
+  dev:
+    <<: *deploy
+    variables:
+      KUBE_NAMESPACE: dev
+    only:
+      - develop
+  qa:
+    <<: *deploy
+    variables:
+      KUBE_NAMESPACE: qa
+    only:
+      - qa
+  staging:
+    <<: *deploy
+    variables:
+      KUBE_NAMESPACE: staging
+    only:
+      - staging
+  prod:
+    <<: *deploy
+    variables:
+      KUBE_NAMESPACE: prod
+    only:
+      - main
+    when: manual
+
+deploy_gateway: 
+  <<: *deploy_all
+  variables:
+    SERVICE: gateway
+    CHART_PATH: ~/gitlab_devops_exams/gateway/gateway
+
+deploy_orders:
+  <<: *deploy_all
+  variables:
+    SERVICE: orders
+    CHART_PATH: ~/gitlab_devops_exams/orders/orders
+
+deploy_users:
+  <<: *deploy_all
+  variables:
+    SERVICE: users
+    CHART_PATH: ~/gitlab_devops_exams/users/users
