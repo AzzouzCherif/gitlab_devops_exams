@@ -1,0 +1,22 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+
+build_gateway:
+  stage: build
+  script:
+    - docker build -t gateway:latest gateway/
+
+build_orders:
+  stage: build
+  script:
+    - docker build -t orders:latest orders/
+
+build_users:
+  stage: build
+  script:
+    - docker build -t users:latest users/
