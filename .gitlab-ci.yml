@@ -19,9 +19,8 @@ build_and_push:
   before_script:
     - rm -Rf ~/.kube
     - mkdir -p ~/.kube
-    - echo "Decoding KUBE_CONFIG_BASE64 variable..."
-    - echo "$KUBE_CONFIG_BASE64" | base64 -d > ~/.kube/config
-    - cat ~/.kube/config	
+    - echo "Copying KUBE_CONFIG variable to the config file..."
+    - echo "$KUBE_CONFIG" > ~/.kube/config
 # Deploy Gateway
 deploy_gateway_dev:
   stage: deploy
