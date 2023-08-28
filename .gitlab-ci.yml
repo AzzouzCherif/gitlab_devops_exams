@@ -1,9 +1,16 @@
 stages:
-  - build
+  - build_and_push
+  - deploy
 
-build_gateway:
-  stage: build
+build_and_push:
+  stage: build_and_push
   tags:
     - batata
   script:
-    - docker build -t gateway:latest ./gateway/
+    - docker build -t $CI_REGISTRY_IMAGE/gateway:latest /home/ubuntu/gitlab_devops_exams/gateway/
+    - docker push $CI_REGISTRY_IMAGE/gateway:latest
+    - docker build -t $CI_REGISTRY_IMAGE/orders:latest /home/ubuntu/gitlab_devops_exams/orders/
+    - docker push $CI_REGISTRY_IMAGE/orders:latest
+    - docker build -t $CI_REGISTRY_IMAGE/users:latest /home/ubuntu/gitlab_devops_exams/users/
+    - docker push $CI_REGISTRY_IMAGE/users:latest
+
