@@ -25,7 +25,8 @@ deploy_gateway_dev:
     - mkdir .kube
     - ls
     - cat $KUBE_CONFIG > .kube/config
-    - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace dev
+    - cat .kube/config
+#    - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace dev
 
 deploy_gateway_qa:
   stage: deploy
