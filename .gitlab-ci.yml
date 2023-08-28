@@ -21,10 +21,10 @@ deploy_gateway_dev:
   tags:
     - batata
   script:
-#    - rm -Rf .kube
-#   - mkdir .kube
+    - rm -Rf .kube
+    - mkdir .kube
     - ls
- #   - cat $KUBE_CONFIG > .kube/config
+    - cat $KUBE_CONFIG > .kube/config
     - cat .kube/config
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace dev
 
