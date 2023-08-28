@@ -1,6 +1,9 @@
 stages:
   - build_and_push
-  - deploy
+  - deploy_dev
+  - deploy_qa
+#  - deploy_staging
+#  - deploy_prod
 
 build_and_push:
   stage: build_and_push
@@ -15,9 +18,9 @@ build_and_push:
     - docker build -t $CI_REGISTRY_IMAGE/users:latest /home/ubuntu/gitlab_devops_exams/users/
     - docker push $CI_REGISTRY_IMAGE/users:latest
 
-# Deploy Gateway
-deploy_gateway_dev:
-  stage: deploy
+# Deploy dev
+deploy_dev:
+  stage: deploy_dev
   tags:
     - batata
   script:
@@ -29,3 +32,21 @@ deploy_gateway_dev:
     -  helm upgrade --install gateway gateway/gateway/ --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace dev  --kubeconfig=.kube/config
     -  helm upgrade --install users users/users/ --set image.repository=$CI_REGISTRY_IMAGE/users --namespace dev  --kubeconfig=.kube/config
     -  helm upgrade --install orders orders/orders/ --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace dev  --kubeconfig=.kube/config
+
+
+
+
+# Deploy qa
+deploy_qa:
+  stage: deploy_qa
+  tags:
+    - batata
+  script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
+    - cat .kube/config
+    -  helm upgrade --install gateway gateway/gateway/ --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace qa  --kubeconfig=.kube/config
+    -  helm upgrade --install users users/users/ --set image.repository=$CI_REGISTRY_IMAGE/users --namespace qa  --kubeconfig=.kube/config
+    -  helm upgrade --install orders orders/orders/ --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace qa  --kubeconfig=.kube/config
