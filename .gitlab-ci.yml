@@ -11,18 +11,5 @@ build_gateway:
   tags:
     - coureur
   script:
-    - docker build -t gateway:latest gateway/
+    - docker build -t gateway:latest ~/gitlab_devops_exams/gateway/gateway/
 
-build_orders:
-  stage: build
-  tags:
-    - coureur
-  script:
-    - docker build -t orders:latest orders/
-
-build_users:
-  stage: build
-  tags:
-    - coureur
-  script:
-    - docker build -t users:latest users/
