@@ -19,8 +19,8 @@ build_and_push:
   before_script:
     - rm -Rf .kube
     - mkdir .kube
-    - cat $KUBE_CONFIG > .kube/config
-    - kubectl config view --raw >~/.kube/config
+    - echo "$KUBE_CONFIG" > ~/.kube/config
+    - cat ~/.kube/config
 
 # Deploy Gateway
 deploy_gateway_dev:
