@@ -2,8 +2,8 @@ stages:
   - build_and_push
   - deploy_dev
   - deploy_qa
-#  - deploy_staging
-#  - deploy_prod
+  - deploy_staging
+  - deploy_prod
 
 build_and_push:
   stage: build_and_push
@@ -50,3 +50,52 @@ deploy_qa:
     -  helm upgrade --install gateway gateway/gateway/ --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace qa  --kubeconfig=.kube/config
     -  helm upgrade --install users users/users/ --set image.repository=$CI_REGISTRY_IMAGE/users --namespace qa  --kubeconfig=.kube/config
     -  helm upgrade --install orders orders/orders/ --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace qa  --kubeconfig=.kube/config
+
+
+
+# Deploy staging
+deploy_staging:
+  stage: deploy_staging
+  tags:
+    - batata
+  script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
+    - cat .kube/config
+    -  helm upgrade --install gateway gateway/gateway/ --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace staging  --kubeconfig=.kube/config
+    -  helm upgrade --install users users/users/ --set image.repository=$CI_REGISTRY_IMAGE/users --namespace staging  --kubeconfig=.kube/config
+    -  helm upgrade --install orders orders/orders/ --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace staging  --kubeconfig=.kube/config
+
+
+
+# Deploy prod
+deploy_prod:
+  stage: deploy_prod
+  tags:
+    - batata
+  only:
+    - main
+  when: manual
+  script:
+    - rm -Rf .kube
+    - mkdir .kube
+    - ls
+    - cat $KUBE_CONFIG > .kube/config
+    - cat .kube/config
+    - helm upgrade --install gateway gateway/gateway/ --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace prod --kubeconfig=.kube/config
+    - helm upgrade --install users users/users/ --set image.repository=$CI_REGISTRY_IMAGE/users --namespace prod --kubeconfig=.kube/config
+    - helm upgrade --install orders orders/orders/ --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace prod --kubeconfig=.kube/config
+
+
+
+
+
+
+
+
+
+
+
+
