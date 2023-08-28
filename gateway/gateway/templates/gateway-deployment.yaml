@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command:
+        - sh
+        - -c
+        - "uvicorn main:app --reload --host 0.0.0.0"
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: gateway-config
+        volumeMounts:
+        - mountPath: /app/data
+          name: gateway-volume
+      volumes:
+      - name: gateway-volume
+        persistentVolumeClaim:
+          claimName: gateway-pvc

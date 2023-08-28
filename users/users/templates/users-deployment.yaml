@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+      - name: users
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command:
+        - sh
+        - -c
+        - "uvicorn main:app --reload --host 0.0.0.0"
+        ports:
+        - containerPort: 8000 
+        volumeMounts:
+        - mountPath: /app/data
+          name: users-volume
+      volumes:
+      - name: users-volume
+        persistentVolumeClaim:
+          claimName: users-pvc
