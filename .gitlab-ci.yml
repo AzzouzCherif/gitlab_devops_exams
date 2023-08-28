@@ -18,6 +18,8 @@ build_and_push:
 # Deploy Gateway
 deploy_gateway_dev:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace dev
   only:
@@ -25,6 +27,8 @@ deploy_gateway_dev:
 
 deploy_gateway_qa:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace qa
   only:
@@ -32,6 +36,8 @@ deploy_gateway_qa:
 
 deploy_gateway_staging:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace staging
   only:
@@ -39,6 +45,8 @@ deploy_gateway_staging:
 
 deploy_gateway_prod:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install gateway ~/gitlab_devops_exams/gateway/gateway --set image.repository=$CI_REGISTRY_IMAGE/gateway --namespace prod
   only:
@@ -48,6 +56,8 @@ deploy_gateway_prod:
 # Deploy Orders
 deploy_orders_dev:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace dev
   only:
@@ -55,6 +65,8 @@ deploy_orders_dev:
 
 deploy_orders_qa:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace qa
   only:
@@ -62,6 +74,8 @@ deploy_orders_qa:
 
 deploy_orders_staging:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace staging
   only:
@@ -69,6 +83,8 @@ deploy_orders_staging:
 
 deploy_orders_prod:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install orders ~/gitlab_devops_exams/orders/orders --set image.repository=$CI_REGISTRY_IMAGE/orders --namespace prod
   only:
@@ -78,6 +94,8 @@ deploy_orders_prod:
 # Deploy Users
 deploy_users_dev:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace dev
   only:
@@ -85,6 +103,8 @@ deploy_users_dev:
 
 deploy_users_qa:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace qa
   only:
@@ -92,6 +112,8 @@ deploy_users_qa:
 
 deploy_users_staging:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace staging
   only:
@@ -99,6 +121,8 @@ deploy_users_staging:
 
 deploy_users_prod:
   stage: deploy
+  tags:
+    - batata
   script:
     - helm upgrade --install users ~/gitlab_devops_exams/users/users --set image.repository=$CI_REGISTRY_IMAGE/users --namespace prod
   only:
