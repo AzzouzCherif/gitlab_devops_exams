@@ -7,6 +7,7 @@ build_and_push:
   tags:
     - batata
   script:
+    - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
     - docker build -t $CI_REGISTRY_IMAGE/gateway:latest /home/ubuntu/gitlab_devops_exams/gateway/
     - docker push $CI_REGISTRY_IMAGE/gateway:latest
     - docker build -t $CI_REGISTRY_IMAGE/orders:latest /home/ubuntu/gitlab_devops_exams/orders/
