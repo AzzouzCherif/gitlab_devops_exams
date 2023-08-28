@@ -17,11 +17,11 @@ build_and_push:
 
 .configure_kube: &configure_kube
   before_script:
-    - rm -Rf .kube
-    - mkdir .kube
-    - echo "$KUBE_CONFIG" > ~/.kube/config
-    - cat ~/.kube/config
-
+    - rm -Rf ~/.kube
+    - mkdir -p ~/.kube
+    - echo "Decoding KUBE_CONFIG_BASE64 variable..."
+    - echo "$KUBE_CONFIG_BASE64" | base64 -d > ~/.kube/config
+    - cat ~/.kube/config	
 # Deploy Gateway
 deploy_gateway_dev:
   stage: deploy
